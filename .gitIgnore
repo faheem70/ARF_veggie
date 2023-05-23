@@ -1,0 +1,25 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/vegetable/node_modules
+/vegetable/.pnp
+/vegetable/.pnp.js
+
+# testing
+/vegetable/coverage
+
+# production
+/build
+
+# misc
+/backened/.env
+/backened/node_modules
+/vegetable/.DS_Store
+/vegetable/.env.local
+/vegetable/.env.development.local
+/vegetable/.env.test.local
+/vegetable/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
