@@ -39,7 +39,7 @@ const Login = () => {
         e.preventDefault();
         const { email, password } = data;
         if (email && password) {
-            const fetchData = await fetch(`https://veggie-arf-uvgi.onrender.com/login`, {
+            const fetchData = await fetch("https://veggie-arf-uvgi.onrender.com/login", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

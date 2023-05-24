@@ -52,7 +52,7 @@ const Signup = () => {
         if (firstName && email && password && confirmPassword) {
             if (password === confirmPassword) {
 
-                const fetchData = await fetch(`https://veggie-arf-uvgi.onrender.com/signup`, {
+                const fetchData = await fetch("https://veggie-arf-uvgi.onrender.com/signup", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
