@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config()
 const app = express()
-const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const Stripe = require('stripe')
 app.use(cors())
 app.use(express.json({ limit: "10mb" }))
 
@@ -41,8 +41,8 @@ app.get("/", (req, res) => {
 })
 
 //sign up
-app.post("https://veggie-arf-uvgi.onrender.com/signup", async (req, res) => {
-    console.log(req.body);
+app.post("/signup", async (req, res) => {
+   // console.log(req.body);
     const { email } = req.body;
     userModel.findOne({ email: email }).then((result) => {
         if (result) {
@@ -60,7 +60,7 @@ app.post("https://veggie-arf-uvgi.onrender.com/signup", async (req, res) => {
 
 // login
 
-app.post("https://veggie-arf-uvgi.onrender.com/login", (req, res) => {
+app.post("/login", (req, res) => {
     // console.log(req.body);
     const { email } = req.body;
     userModel.findOne({ email: email }, (err, result) => {
@@ -103,15 +103,15 @@ const productModel = mongoose.model("product", productSchema);
 
 // save product
 
-app.post('https://veggie-arf-uvgi.onrender.com/uploadProduct', async (req, res) => {
-    console.log(req.body);
+app.post('/uploadProduct', async (req, res) => {
+   // console.log(req.body);
     const data = await productModel(req.body)
     const datasave = await data.save()
     res.send({ message: "Uplaod Successfully" });
 })
 
 
-app.get("https://veggie-arf-uvgi.onrender.com/product", async (req, res) => {
+app.get("/product", async (req, res) => {
     const data = await productModel.find({})
     res.send(JSON.stringify(data))
 })
@@ -119,9 +119,9 @@ app.get("https://veggie-arf-uvgi.onrender.com/product", async (req, res) => {
 console.log(process.env.STRIPE_SECRET_KEY)
 
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-
-app.post("https://veggie-arf-uvgi.onrender.com/create-checkout-session", async (req, res) => {
+app.post("/create-checkout-session", async (req, res) => {
 
     try {
         const params = {
@@ -129,7 +129,7 @@ app.post("https://veggie-arf-uvgi.onrender.com/create-checkout-session", async (
             mode: "payment",
             payment_method_types: ['card'],
             billing_address_collection: "auto",
-            shipping_options: [{ shipping_rate: "shr_1N0qDnSAq8kJSdzMvlVkJdua" }],
+            shipping_options: [{ shipping_rate: "shr_1NBHjfSBOVB47rxmhQothv6L" }],
 
             line_items: req.body.map((item) => {
                 return {
@@ -137,7 +137,7 @@ app.post("https://veggie-arf-uvgi.onrender.com/create-checkout-session", async (
                         currency: "inr",
                         product_data: {
                             name: item.name,
-                            // images : [item.image]
+                            //images: [item.image]
                         },
                         unit_amount: item.price * 100,
                     },
