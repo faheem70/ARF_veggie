@@ -35,12 +35,13 @@ const userSchema = mongoose.Schema({
 const userModel = mongoose.model("user", userSchema);
 
 app.get("/", (req, res) => {
-    res.send("API is running");
+
     res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.send("API is running..");
 })
 
 //sign up
-app.post("https://arfveggie.onrender.com/signup", async (req, res) => {
+app.post("https://veggie-arf-uvgi.onrender.com/signup", async (req, res) => {
     console.log(req.body);
     const { email } = req.body;
     userModel.findOne({ email: email }).then((result) => {
@@ -59,7 +60,7 @@ app.post("https://arfveggie.onrender.com/signup", async (req, res) => {
 
 // login
 
-app.post("https://arfveggie.onrender.com/login", (req, res) => {
+app.post("https://veggie-arf-uvgi.onrender.com/login", (req, res) => {
     // console.log(req.body);
     const { email } = req.body;
     userModel.findOne({ email: email }, (err, result) => {
@@ -102,7 +103,7 @@ const productModel = mongoose.model("product", productSchema);
 
 // save product
 
-app.post('https://arfveggie.onrender.com/uploadProduct', async (req, res) => {
+app.post('https://veggie-arf-uvgi.onrender.com/uploadProduct', async (req, res) => {
     console.log(req.body);
     const data = await productModel(req.body)
     const datasave = await data.save()
@@ -110,7 +111,7 @@ app.post('https://arfveggie.onrender.com/uploadProduct', async (req, res) => {
 })
 
 
-app.get("https://arfveggie.onrender.com/product", async (req, res) => {
+app.get("https://veggie-arf-uvgi.onrender.com/product", async (req, res) => {
     const data = await productModel.find({})
     res.send(JSON.stringify(data))
 })
@@ -120,7 +121,7 @@ console.log(process.env.STRIPE_SECRET_KEY)
 
 
 
-app.post("https://arfveggie.onrender.com/create-checkout-session", async (req, res) => {
+app.post("https://veggie-arf-uvgi.onrender.com/create-checkout-session", async (req, res) => {
 
     try {
         const params = {

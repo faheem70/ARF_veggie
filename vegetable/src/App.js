@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`https://arfveggie.onrender.com`)
+      const res = await fetch(`https://veggie-arf-uvgi.onrender.com/product`)
       const resData = await res.json()
       console.log(resData);
       dispatch(setDataProduct(resData))

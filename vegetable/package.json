@@ -2,7 +2,7 @@
   "name": "vegetable",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://arfveggie.onrender.com",
+  "proxy": "https://veggie-arf-uvgi.onrender.com",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@stripe/stripe-js": "^1.53.0",
