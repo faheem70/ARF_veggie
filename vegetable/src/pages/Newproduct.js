@@ -37,7 +37,7 @@ const Newproduct = () => {
     const { name, image, category, price } = data
 
     if (name && image && category && price) {
-      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}https://veggie-arf-uvgi.onrender.com/uploadProduct`, {
+      const fetchData = await fetch(`https://veggie-a.onrender.com//uploadProduct`, {
         method: "POST",
         headers: {
           "content-type": "application/json"
