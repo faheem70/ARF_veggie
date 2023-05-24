@@ -35,7 +35,7 @@ const userSchema = mongoose.Schema({
 const userModel = mongoose.model("user", userSchema);
 
 app.get("/", (req, res) => {
-    res.send("server is running");
+    res.send("API is running");
     res.setHeader("Access-Control-Allow-Credentials", "true");
 })
 
