@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/product`)
+      const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}https://veggie-a.onrender.com/product`)
       const resData = await res.json()
       console.log(resData);
       dispatch(setDataProduct(resData))
