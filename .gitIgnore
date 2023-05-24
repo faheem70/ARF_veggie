@@ -12,8 +12,8 @@
 /build
 
 # misc
-/backened/.env
-/backened/node_modules
+/backend/.env
+/backend/node_modules
 /vegetable/.DS_Store
 /vegetable/.env.local
 /vegetable/.env.development.local

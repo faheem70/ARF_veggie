@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 })
 
 //sign up
-app.post("/signup", async (req, res) => {
+app.post("https://veggie-arf-uvgi.onrender.com/signup", async (req, res) => {
     console.log(req.body);
     const { email } = req.body;
     userModel.findOne({ email: email }).then((result) => {
@@ -58,7 +58,7 @@ app.post("/signup", async (req, res) => {
 
 // login
 
-app.post("/login", (req, res) => {
+app.post("https://veggie-arf-uvgi.onrender.com/login", (req, res) => {
     // console.log(req.body);
     const { email } = req.body;
     userModel.findOne({ email: email }, (err, result) => {
@@ -101,7 +101,7 @@ const productModel = mongoose.model("product", productSchema);
 
 // save product
 
-app.post('/uploadProduct', async (req, res) => {
+app.post('https://veggie-arf-uvgi.onrender.com/uploadProduct', async (req, res) => {
     console.log(req.body);
     const data = await productModel(req.body)
     const datasave = await data.save()
@@ -109,7 +109,7 @@ app.post('/uploadProduct', async (req, res) => {
 })
 
 
-app.get("/product", async (req, res) => {
+app.get("https://veggie-arf-uvgi.onrender.com/product", async (req, res) => {
     const data = await productModel.find({})
     res.send(JSON.stringify(data))
 })
