@@ -42,18 +42,19 @@ app.get("/", (req, res) => {
 
 //sign up
 app.post("/signup", async (req, res) => {
-   // console.log(req.body);
+    // console.log(req.body);
     const { email } = req.body;
-    userModel.findOne({ email: email }).then((result) => {
+
+    userModel.findOne({ email: email }, (err, result) => {
+        // console.log(result);
+        console.log(err);
         if (result) {
             res.send({ message: "Email id is already register", alert: false });
-        } else if (result) {
-            const data = userModel(req.body);
-            const save = data.save();
-            res.send({ message: "Successfully sign up", alert: true });
-        }
-    }).catch((err) => {
-        console.log(err);
+      } else {
+          const data = userModel(req.body);
+          const save = data.save();
+          res.send({ message: "Successfully sign up", alert: true });
+      }
     });
 });
 
