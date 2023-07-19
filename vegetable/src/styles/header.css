@@ -1,0 +1,17 @@
+.px-2 {
+    text-decoration: none;
+}
+
+.px-2:hover {
+    /* If you want to add any styles when hovering over the link */
+    /* For example, change the color */
+    color: #333;
+}
+
+.nav-link {
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #331ad9;
+}

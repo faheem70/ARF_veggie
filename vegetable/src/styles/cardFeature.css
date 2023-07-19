@@ -1,0 +1,12 @@
+/* CardFeature.css */
+.link-no-underline {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link-no-underline:hover {
+    /* If you want to add any styles when hovering over the link */
+    /* For example, change the color */
+    color: #555;
+    /* You can also add other hover effects here */
+}

@@ -32,7 +32,7 @@ const Newproduct = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data)
+    //console.log(data)
 
     const { name, image, category, price } = data
 
@@ -47,7 +47,7 @@ const Newproduct = () => {
 
       const fetchRes = await fetchData.json()
 
-      console.log(fetchRes)
+     // console.log(fetchRes)
       toast(fetchRes.message)
 
       setData(() => {

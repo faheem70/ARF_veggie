@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addCartitems } from '../redux/productSlice';
-
+import "../styles/cardFeature.css"
 const CardFeature = ({ image, name, price, category, loading, id }) => {
     const dispatch = useDispatch();
     const handleAddCartProduct = (e) => {
@@ -21,6 +21,7 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
                     <Link
                         to={`/menu/${id}`}
                         onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
+                        className="link-no-underline"
                     >
                         <div className="h-28 flex flex-col justify-center items-center">
                             <img src={image} className="h-full" alt='vegetable' />

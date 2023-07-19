@@ -8,6 +8,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Routes,
 } from "react-router-dom";
 import Menu from './pages/Menu';
 import About from './pages/About';
@@ -21,9 +22,14 @@ import { Provider } from "react-redux";
 import Cart from './pages/Cart';
 import Success from './pages/Success';
 import Cancel from './pages/Cancel';
+import { UserAuthContextProvider } from './context/UserAuthContext';
+//import { Col } from 'react-bootstrap';
+import PhoneSignUp from './pages/PhoneSignUp';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="menu/:filterby" element={<Menu />} />
@@ -35,17 +41,20 @@ const router = createBrowserRouter(
       <Route path='cart' element={<Cart />} />
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
+      <Route path="phonesignup" element={<PhoneSignUp />} />
     </Route>
-
   )
 );
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <UserAuthContextProvider>
+      <RouterProvider router={router} />
+    </UserAuthContextProvider>
   </Provider>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -6,11 +6,14 @@ import toast from "react-hot-toast";
 import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate } from "react-router-dom";
 import CartProduct from "../components/cartProduct";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Cart = () => {
 
     const productCartItem = useSelector((state) => state.product.cartItem);
-    const user = useSelector(state => state.user)
+    //const user = useSelector(state => state.user)
+    const user = useUserAuth();
+    //console.log(user);
     const navigate = useNavigate()
 
     const totalPrice = productCartItem.reduce(
@@ -22,36 +25,43 @@ const Cart = () => {
         0
     );
 
-
-
     const handlePayment = async () => {
-
-        if (user.email) {
-
-            const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+        if (user) {
+            const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
             const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/create-checkout-session`, {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
                 },
-                body: JSON.stringify(productCartItem)
-            })
-            if (res.statusCode === 500) return;
+                body: JSON.stringify(productCartItem),
+            });
 
-            const data = await res.json()
-            console.log(data)
+            if (res.status === 500) {
+                // If there's an error, show a toast message
+                toast.error("Error occurred while creating the payment session.");
+                return;
+            }
 
-            toast("Redirect to payment Gateway...!")
-            stripePromise.redirectToCheckout({ sessionId: data }) 
-        }
-        else {
-            toast("You have not Login!")
+            const data = await res.json();
+           // console.log(data);
+
+            if (typeof data.sessionId === "string") {
+                toast("Redirecting to payment Gateway...!");
+                stripePromise.redirectToCheckout({ sessionId: data.sessionId });
+            } else {
+                toast.error("Invalid sessionId received from the server.");
+            }
+        } else {
+            toast("You have not logged in!");
             setTimeout(() => {
-                navigate("/login")
-            }, 1000)
+                navigate("/login");
+            }, 1000);
         }
+    };
 
-    }
+
+
+
     return (
         <>
 

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+/*import React, { useState } from 'react'
 import loginSignUp from "../assest/login-animation.gif";
 import { BiShow, BiHide } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
@@ -38,25 +38,35 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { email, password } = data;
+
+
         if (email && password) {
-            const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/login`, {
+
+            const fetchData = await fetch("http://localhost:4000/login", {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json"
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify(data)
-            })
+                body: JSON.stringify({
+                    email, password
+                })
+            });
 
             const dataRes = await fetchData.json()
 
+            console.log(dataRes);
 
-            console.log(dataRes)
+
+
+            //console.log(dataRes)
             //alert('Successfully');
             toast(dataRes.message)
             if (dataRes.alert) {
                 dispatch(loginRedux(dataRes))
+                //localStorage.setItem('token', dataRes.result.token)
                 setTimeout(() => {
                     navigate("/")
+
                 }, 1000);
             }
 
@@ -103,3 +113,99 @@ const Login = () => {
 }
 
 export default Login
+*/
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Alert, Row, Container, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import GoogleButton from "react-google-button";
+import { useUserAuth } from "../context/UserAuthContext";
+import "../styles/cardFeature.css"
+const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const { logIn, googleSignIn } = useUserAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+        try {
+            await logIn(email, password);
+            navigate("/");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    const handleGoogleSignIn = async (e) => {
+        e.preventDefault();
+        try {
+            await googleSignIn();
+            navigate("/");
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    return (
+        <>
+
+            <Container style={{ width: "400px" }}>
+                <Row>
+                    <Col>
+                        <div className="p-4 box">
+                            <h2 className="mb-3">Welcome To Login</h2>
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="Email address"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </Form.Group>
+
+                                <div className="d-grid gap-2">
+                                    <Button variant="primary" type="Submit">
+                                        Log In
+                                    </Button>
+                                </div>
+                            </Form>
+                            <hr />
+                            <div>
+                                <GoogleButton
+                                    className="g-btn"
+                                    type="dark"
+                                    onClick={handleGoogleSignIn}
+                                />
+                            </div>
+                            <Link to="/phonesignup" className="link-no-underline">
+                                <div className="d-grid gap-2 mt-3">
+                                    <Button variant="success" type="Submit">
+                                        Sign in with Phone
+                                    </Button>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="p-4 box mt-3 text-center">
+                            Don't have an account? <Link to="/signup">Sign up</Link>
+                        </div>
+
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    );
+};
+
+export default Login;

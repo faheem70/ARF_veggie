@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import "../styles/cardFeature.css"
 const HomeCart = ({ name, image, category, price, loading, id }) => {
     return (
         <div className="bg-white shadow-md p-2 rounded min-w-[150px]">
             {name ? (
                 <>
-                    <Link to={`/menu/${id}`} onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })} >
+                    <Link to={`/menu/${id}`} onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })} className="link-no-underline" >
                         <div className="w-40 min-h-[150px]">
                             <img src={image} className="h-full w-full" alt='card' />
                         </div>

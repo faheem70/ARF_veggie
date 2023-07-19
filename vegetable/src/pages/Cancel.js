@@ -8,4 +8,4 @@ const Cancel = () => {
     )
 }
 
-export default Cancel
+export default Cancel;

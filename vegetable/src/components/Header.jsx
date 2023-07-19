@@ -6,6 +6,9 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutRedux } from '../redux/userSlice';
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { useUserAuth } from "../context/UserAuthContext";
+import "../styles/header.css"
 
 function Header() {
 
@@ -19,14 +22,26 @@ function Header() {
     setShowMenu((preve) => !preve);
   };
 
-  const handleLogout = () => {
+  /*const handleLogout = () => {
     dispatch(logoutRedux());
+    localStorage.clear();
     toast("Logout Successfully");
   }
-
+*/
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+      toast("Logout Successfully");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   const cartItemNumber = useSelector((state) => state.product.cartItem)
 
-  console.log(process.env.REACT_APP_ADMIN_EMAIL)
+ // console.log(process.env.REACT_APP_ADMIN_EMAIl)
   return (
 
     <header className='fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white'>
@@ -37,11 +52,11 @@ function Header() {
           </div>
         </Link>
         <div className="flex items-center gap-4 md:gap-7">
-          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
-            <Link to={""}>Home</Link>
-            <Link to={"menu/646a6c20d2cbd5c7764a20e9"}>Menu</Link>
-            <Link to={"about"}>About</Link>
-            <Link to={"contact"}>Contact</Link>
+          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex ">
+            <Link to={""} className="nav-link">Home</Link>
+            <Link to={"menu/646a6c20d2cbd5c7764a20e9"} className="nav-link">Menu</Link>
+            <Link to={"about"} className="nav-link">About</Link>
+            <Link to={"contact"} className="nav-link">Contact</Link>
           </nav>
           <div className='text-2xl text-slate-600 relative'>
             <Link to={"cart"}><BsCartFill />
@@ -60,11 +75,11 @@ function Header() {
               <div className='absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center '>
 
                 {
-                  userData.email === process.env.REACT_APP_ADMIN_EMAIL && <Link to={"newproduct"} className=' whitespace-nowrap cursor-pointer px-2'>New product</Link>
+                  user?.email === process.env.REACT_APP_ADMIN_EMAIL && <Link to={"newproduct"} className=' whitespace-nowrap cursor-pointer px-2'>New product</Link>
                 }
 
                 {
-                  userData.image ? <p className='cursor-pointer text-white bg-blue-500 px-2' onClick={handleLogout}>Logout ({userData.firstName})</p> : <Link to={'login'} className=' whitespace-nowrap cursor-pointer px-2'>Login</Link>
+                  user ? <p className='cursor-pointer text-white bg-blue-500 px-2' onClick={handleLogout}>Logout ({user.firstName})</p> : <Link to={'login'} className=' whitespace-nowrap cursor-pointer px-2'>Login</Link>
                 }
                 <nav className=" text-base md:text-lg flex flex-col md:hidden">
                   <Link to={""} className='px-2 py-1'>Home</Link>

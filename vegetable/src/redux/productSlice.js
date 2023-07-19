@@ -12,7 +12,7 @@ export const productSlice = createSlice({
     initialState,
     reducers: {
         setDataProduct: (state, action) => {
-            console.log(action)
+            //console.log(action)
             state.productList = [...action.payload];
         },
         addCartitems: (state, action) => {
@@ -33,7 +33,7 @@ export const productSlice = createSlice({
             toast("One item delete successfully");
             const index = state.cartItem.findIndex((el) => el._id === action.payload);
             state.cartItems.splice(index, 1);
-            console.log(index);
+            //console.log(index);
         },
         increaseQty: (state, action) => {
             const index = state.cartItem.findIndex((el) => el._id === action.payload);

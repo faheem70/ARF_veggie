@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 import loginSignupImage from "../assest/login-animation.gif";
 import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ function Signup() {
         email: "",
         password: "",
         confirmPassword: "",
-      image: ""
+        image: ""
   });
 
     const handleShowPassword = () => {
@@ -53,12 +53,13 @@ function Signup() {
         e.preventDefault();
         const { firstName, email, password, confirmPassword } = data;
         if (firstName && email && password && confirmPassword) {
+
             if (password === confirmPassword) {
 
           const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/signup`, {
               method: "POST",
               headers: {
-                  "content-type": "application/json"
+                  "content-type": "application/json;charset=UTF-8"
               },
               body: JSON.stringify(data)
           })
@@ -83,7 +84,7 @@ function Signup() {
     return (
         <div className="p-3 md:p-4">
             <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
-              {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
+             
               <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative ">
                   <img src={data.image ? data.image : loginSignupImage} className="w-full h-full" />
 
@@ -176,5 +177,74 @@ function Signup() {
       </div>
   );
 }
+
+export default Signup;
+*/
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Alert, Container, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { useUserAuth } from "../context/UserAuthContext";
+
+const Signup = () => {
+    const [email, setEmail] = useState("");
+    const [error, setError] = useState("");
+    const [password, setPassword] = useState("");
+    const { signUp } = useUserAuth();
+    let navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+        try {
+            await signUp(email, password);
+            navigate("/");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    return (
+        <>
+            <Container style={{ width: "400px" }}>
+                <Row>
+                    <Col>
+                        <div className="p-4 box">
+                            <h2 className="mb-3">Welcome To Signup</h2>
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="Email address"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </Form.Group>
+
+                                <div className="d-grid gap-2">
+                                    <Button variant="primary" type="Submit">
+                                        Sign up
+                                    </Button>
+                                </div>
+                            </Form>
+                        </div>
+                        <div className="p-4 box mt-3 text-center">
+                            Already have an account? <Link to="/login">Log In</Link>
+                        </div>
+                    </Col>
+                </Row>
+
+            </Container>
+        </>
+    );
+};
 
 export default Signup;
