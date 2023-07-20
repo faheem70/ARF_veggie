@@ -26,7 +26,7 @@ const Cart = () => {
     );
 
     const handlePayment = async () => {
-        if (user && user?.email) {
+        if (user || user?.email) {
             const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
             const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/create-checkout-session`, {
                 method: "POST",

@@ -79,7 +79,7 @@ function Header() {
                 }
 
                 {
-                  user && user?.email ? <p className='cursor-pointer text-white bg-blue-500 px-2' onClick={handleLogout}>Logout ({user?.email})</p> : <Link to={'login'} className=' whitespace-nowrap cursor-pointer px-2'>Login</Link>
+                  (user || user?.email) ? <p className='cursor-pointer text-white bg-blue-500 px-2' onClick={handleLogout}>Logout ({user?.email})</p> : <Link to={'login'} className=' whitespace-nowrap cursor-pointer px-2'>Login</Link>
                 }
                 <nav className=" text-base md:text-lg flex flex-col md:hidden">
                   <Link to={""} className='px-2 py-1'>Home</Link>
