@@ -44,7 +44,7 @@ const PhoneSignUp = () => {
 
     return (
         <>
-            <Container style={{ width: "400px" }}>
+            <Container style={{ width: "100%", maxWidth: "400px" }}>
                 <Row>
                     <Col>
                         <div className="p-4 box">
