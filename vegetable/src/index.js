@@ -4,11 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
-  createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-  Routes,
+  createHashRouter,
+
 } from "react-router-dom";
 import Menu from './pages/Menu';
 import About from './pages/About';
@@ -27,7 +27,7 @@ import { UserAuthContextProvider } from './context/UserAuthContext';
 import PhoneSignUp from './pages/PhoneSignUp';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
 
     <Route path="/" element={<App />}>

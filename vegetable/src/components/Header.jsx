@@ -3,8 +3,8 @@ import logo from "../assest/logo.jpg";
 import { Link } from "react-router-dom";
 import { BsCartFill } from "react-icons/bs";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutRedux } from '../redux/userSlice';
+import { useSelector } from "react-redux";
+//import { logoutRedux } from '../redux/userSlice';
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -15,7 +15,7 @@ function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
   const userData = useSelector((state) => state.user)
-  const dispatch = useDispatch();
+ // const dispatch = useDispatch();
 
 
   const handleShowMenu = () => {
@@ -79,7 +79,7 @@ function Header() {
                 }
 
                 {
-                  user ? <p className='cursor-pointer text-white bg-blue-500 px-2' onClick={handleLogout}>Logout ({user.firstName})</p> : <Link to={'login'} className=' whitespace-nowrap cursor-pointer px-2'>Login</Link>
+                  user && user?.email ? <p className='cursor-pointer text-white bg-blue-500 px-2' onClick={handleLogout}>Logout ({user?.email})</p> : <Link to={'login'} className=' whitespace-nowrap cursor-pointer px-2'>Login</Link>
                 }
                 <nav className=" text-base md:text-lg flex flex-col md:hidden">
                   <Link to={""} className='px-2 py-1'>Home</Link>

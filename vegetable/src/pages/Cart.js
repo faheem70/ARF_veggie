@@ -12,7 +12,7 @@ const Cart = () => {
 
     const productCartItem = useSelector((state) => state.product.cartItem);
     //const user = useSelector(state => state.user)
-    const user = useUserAuth();
+    const { user } = useUserAuth();
     //console.log(user);
     const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ const Cart = () => {
     );
 
     const handlePayment = async () => {
-        if (user) {
+        if (user && user?.email) {
             const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
             const res = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/create-checkout-session`, {
                 method: "POST",
