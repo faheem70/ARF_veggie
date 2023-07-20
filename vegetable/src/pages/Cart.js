@@ -7,6 +7,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate } from "react-router-dom";
 import CartProduct from "../components/cartProduct";
 import { useUserAuth } from "../context/UserAuthContext";
+import "../styles/cart.css"
 
 const Cart = () => {
 
@@ -71,9 +72,9 @@ const Cart = () => {
                 </h2>
 
                 {productCartItem[0] ?
-                    <div className="my-4 flex gap-3">
+                    <div className="my-4 flex gap-3 cart-container">
                         {/* display cart items  */}
-                        <div className="w-full max-w-3xl ">
+                        <div className="w-full max-w-3xl cart-items-container ">
                             {productCartItem.map((el) => {
                                 return (
                                     <CartProduct
@@ -91,7 +92,7 @@ const Cart = () => {
                         </div>
 
                         {/* total cart item  */}
-                        <div className="w-full max-w-md  ml-auto">
+                        <div className="w-full max-w-md  cart-summary-container ml-auto">
                             <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
                             <div className="flex w-full py-2 text-lg border-b">
                                 <p>Total Qty :</p>
