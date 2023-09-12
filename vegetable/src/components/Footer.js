@@ -70,7 +70,7 @@ function Footer() {
                             <HStack spacing={2} mt={{ base: 4, md: 0 }}>
                                 <IconButton
                                     as={Link}
-                                    href="https://www.facebook.com/kisankonnect.india/?ref=page_internal"
+                                    href=""
                                     target="_blank"
                                     aria-label="Facebook"
                                     icon={<FaFacebook />}
@@ -80,7 +80,7 @@ function Footer() {
                                 />
                                 <IconButton
                                     as={Link}
-                                    href="https://www.facebook.com/kisankonnect.india/?ref=page_internal"
+                                    href=""
                                     target="_blank"
                                     aria-label="Twitter"
                                     icon={<FaTwitter />}
