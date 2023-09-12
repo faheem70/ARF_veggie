@@ -1,54 +1,92 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addCartitems } from '../redux/productSlice';
-import "../styles/cardFeature.css"
+import {
+    Box,
+    Image,
+    Heading,
+    Text,
+    Button,
+} from '@chakra-ui/react';
+
 const CardFeature = ({ image, name, price, category, loading, id }) => {
     const dispatch = useDispatch();
-    const handleAddCartProduct = (e) => {
+
+    const handleAddCartProduct = () => {
         dispatch(addCartitems({
             _id: id,
             name: name,
             price: price,
             category: category,
-            image: image
-        }))
-    };
-    return (
-        <div className="w-full min-w-[200px] max-w-[200px] bg-white hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col ">
-            {image ? (
-                <>
-                    <Link
-                        to={`/menu/${id}`}
-                        onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
-                        className="link-no-underline"
-                    >
-                        <div className="h-28 flex flex-col justify-center items-center">
-                            <img src={image} className="h-full" alt='vegetable' />
-                        </div>
-                        <h3 className="font-semibold text-slate-600  capitalize text-lg mt-4 whitespace-nowrap overflow-hidden">
-                            {name}
-                        </h3>
-                        <p className=" text-slate-500  font-medium">{category}</p>
-                        <p className=" font-bold">
-                            <span className="text-red-500">₹</span>
-                            <span>{price}</span>
-                        </p>
-                    </Link>
-                    <button
-                        className="bg-green-400 py-1 mt-2 rounded hover:bg-green-600 w-full"
-                        onClick={handleAddCartProduct}
-                    >
-                        Add Cart
-                    </button>
-                </>
-            ) : (
-                <div className="min-h-[150px] flex justify-center items-center">
-                    <p>{loading}</p>
-                </div>
-            )}
-        </div>
-    )
-}
+        image: image,
+    }));
+  };
 
-export default CardFeature
+    return (
+      <Box
+          w="200px"
+          minW="200px"
+          maxW="200px"
+          bg="white"
+          boxShadow="lg"
+          py="5"
+          px="4"
+          cursor="pointer"
+          transition="transform 0.2s ease, box-shadow 0.2s ease"
+          _hover={{
+              transform: 'translateY(-5px)',
+              boxShadow: 'xl',
+          }}
+      >
+          {image ? (
+              <>
+                  <Link
+                      to={`/menu/${id}`}
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="link-no-underline"
+                  >
+                      <Box h="150px" display="flex" alignItems="center" justifyContent="center">
+                          <Image src={image} alt="vegetable" maxH="100%" />
+                      </Box>
+                      <Heading
+                          fontSize="lg"
+                          fontWeight="semibold"
+                          color="slate.600"
+                          mt="4"
+                          whiteSpace="nowrap"
+                          overflow="hidden"
+                          textOverflow="ellipsis"
+                      >
+                          {name}
+                      </Heading>
+                      <Text color="slate.500" fontWeight="medium">{category}</Text>
+                      <Text fontWeight="bold">
+                          <Box as="span" color="red.500">
+                              ₹
+                          </Box>
+                          <Box as="span">{price}</Box>
+                      </Text>
+                  </Link>
+                  <Button
+                      mt="2"
+                      bg="green.400"
+                      py="1"
+                      rounded="md"
+                      _hover={{ bg: 'green.600' }}
+                      onClick={handleAddCartProduct}
+                      w="100%"
+                  >
+                      Add to Cart
+                  </Button>
+              </>
+          ) : (
+              <Box minH="150px" display="flex" justifyContent="center" alignItems="center">
+                  <Text>{loading}</Text>
+              </Box>
+          )}
+        </Box>
+    );
+};
+
+export default CardFeature;

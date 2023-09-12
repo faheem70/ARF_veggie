@@ -1,10 +1,20 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert, Container, Col, Row } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import {
+    Alert,
+    Box,
+    Button,
+    Container,
+    FormControl,
+    FormLabel,
+    Input,
+    Link,
+    Text,
+    VStack,
+    Center,
+} from "@chakra-ui/react";
+import PhoneInput from "react-phone-number-input/input";
 import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const PhoneSignUp = () => {
     const [error, setError] = useState("");
@@ -13,11 +23,10 @@ const PhoneSignUp = () => {
     const [otp, setOtp] = useState("");
     const [result, setResult] = useState("");
     const { setUpRecaptha } = useUserAuth();
-    const navigate = useNavigate();
+    const history = useNavigate();
 
     const getOtp = async (e) => {
         e.preventDefault();
-        // console.log(number);
         setError("");
         if (number === "" || number === undefined)
             return setError("Please enter a valid phone number!");
@@ -36,64 +45,73 @@ const PhoneSignUp = () => {
         if (otp === "" || otp === null) return;
         try {
             await result.confirm(otp);
-            navigate("/");
+            history("/");
         } catch (err) {
             setError(err.message);
         }
     };
 
     return (
-        <>
-            <Container style={{ width: "100%", maxWidth: "400px" }}>
-                <Row>
-                    <Col>
-                        <div className="p-4 box">
-                            <h2 className="mb-3">Login with Phone</h2>
-                            {error && <Alert variant="danger">{error}</Alert>}
-                            <Form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <PhoneInput
-                                        defaultCountry="IN"
-                                        value={number}
-                                        onChange={setNumber}
-                                        placeholder="Enter Phone Number"
-                                    />
-                                    <div id="recaptcha-container"></div>
-                                </Form.Group>
-                                <div className="button-right">
-                                    <Link to="/">
-                                        <Button variant="secondary">Cancel</Button>
-                                    </Link>
-                                    &nbsp;
-                                    <Button type="submit" variant="primary">
-                                        Send Otp
-                                    </Button>
-                                </div>
-                            </Form>
+        <Center h="100vh">
+            <Box
+                p="4"
+                borderWidth="1px"
+                borderRadius="md"
+                boxShadow="md"
+                maxW="400px"
+                w="100%"
+            >
+                <Text fontSize="2xl" mb="3" textAlign="center">
+                    Login with Phone
+                </Text>
+                {error && <Alert status="error">{error}</Alert>}
+                <VStack spacing="4">
+                    <form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
+                        <FormControl mb="4" mt="4"> {/* Add margin-top (mt) */}
+                            <FormLabel>Enter Phone Number</FormLabel>
+                            <PhoneInput
+                                defaultCountry="IN"
+                                value={number}
+                                onChange={setNumber}
+                                placeholder="Enter Phone Number"
+                                style={{ width: "100%", border: "none", outline: "none" }}
+                            />
+                        </FormControl>
+                        <VStack spacing="4" align="center">
+                            <Link to="/">
+                                <Button variant="outline" colorScheme="teal" px={6}>
+                                    Cancel
+                                </Button>
+                            </Link>
+                            <Button type="submit" colorScheme="purple" px={8}>
+                                Send OTP
+                            </Button>
+                        </VStack>
+                    </form>
 
-                            <Form onSubmit={verifyOtp} style={{ display: flag ? "block" : "none" }}>
-                                <Form.Group className="mb-3" controlId="formBasicOtp">
-                                    <Form.Control
-                                        type="otp"
-                                        placeholder="Enter OTP"
-                                        onChange={(e) => setOtp(e.target.value)}
-                                    />
-                                </Form.Group>
-                                <div className="button-right">
-                                    <Link to="/">
-                                        <Button variant="secondary">Cancel</Button>
-                                    </Link>
-                                    &nbsp;
-                                    <Button type="submit" variant="primary">
-                                        Verify
-                                    </Button>
-                                </div>
-                            </Form>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </>
+                    <form onSubmit={verifyOtp} style={{ display: flag ? "block" : "none" }}>
+                        <FormControl>
+                            <FormLabel>Enter OTP</FormLabel>
+                            <Input
+                                type="text"
+                                placeholder="Enter OTP"
+                                onChange={(e) => setOtp(e.target.value)}
+                            />
+                        </FormControl>
+                        <VStack spacing="4" align="center" mx={4}>
+                            <Link to="/">
+                                <Button variant="outline" colorScheme="teal" px={6}>
+                                    Cancel
+                                </Button>
+                            </Link>
+                            <Button type="submit" colorScheme="purple" px={8}>
+                                Verify
+                            </Button>
+                        </VStack>
+                    </form>
+                </VStack>
+            </Box>
+        </Center>
     );
 };
 

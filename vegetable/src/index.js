@@ -26,6 +26,7 @@ import { UserAuthContextProvider } from './context/UserAuthContext';
 //import { Col } from 'react-bootstrap';
 import PhoneSignUp from './pages/PhoneSignUp';
 import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from './components/Footer';
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -42,7 +43,10 @@ const router = createHashRouter(
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
       <Route path="phonesignup" element={<PhoneSignUp />} />
+
+
     </Route>
+
   )
 );
 
@@ -50,6 +54,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <UserAuthContextProvider>
+
       <RouterProvider router={router} />
     </UserAuthContextProvider>
   </Provider>

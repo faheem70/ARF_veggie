@@ -7,6 +7,9 @@ import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 import AllProduct from '../components/AllProduct';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 const Home = () => {
@@ -46,13 +49,35 @@ const Home = () => {
             <img src={bike} alt='bike' className='h-7' />
           </div>
           <h2 className='text-4xl md:text-7xl font-bold py-3'>Veggies to <span className='text-green-600 '>doorsteps</span></h2>
-          <p className='py-3 text-base'>Vegetables are a must on a diet. I suggest carrot cake, zucchini bread, and pumpkin pie.
-            Cultivating and harvesting fruits and vegetables can be a rewarding experience,
-            connecting us to the natural world and fostering a sense of responsibility for the environment.
-            Gardening or supporting local farmers also helps to promote sustainable practices.
-            fruits and vegetables are much more than just sources of sustenance. They have a profound impact on our physical health,
-            emotional well-being, and connection to the natural world. Embracing the abundance and variety of fruits and vegetables can bring joy,
-            health, and harmony to our lives.</p>
+          <Box maxW="400px" mx="">
+            <Carousel
+              showThumbs={false}
+              showStatus={false}
+              infiniteLoop={true}
+              autoPlay={true}
+              width="100%"
+            >
+              <div>
+                <img
+                  src="https://www.bigbasket.com/media/uploads/p/l/10000349_20-fresho-custard-apple.jpg?tr=w-640,q=80"
+                  alt="Image 1"
+                />
+              </div>
+              <div>
+                <img
+                  src="https://www.bigbasket.com/media/uploads/p/l/40033819_29-fresho-apple-shimla.jpg?tr=w-640,q=80"
+                  alt="Image 2"
+                />
+              </div>
+              <div>
+                <img
+                  src="https://www.bigbasket.com/media/uploads/p/l/10000269_32-fresho-pomegranate.jpg?tr=w-640,q=80"
+                  alt="Image 3"
+                />
+              </div>
+              {/* Add more images as needed */}
+            </Carousel>
+          </Box>
           <button className='bg-green-500 hover:bg-green-700 font-medium rounded-full px-4 py-2' onClick={Orderhandle}>Order Now</button>
         </div>
         <div className="md:w-1/2 flex flex-wrap gap-5 p-4 justify-center">

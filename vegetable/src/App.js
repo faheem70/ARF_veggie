@@ -6,6 +6,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { setDataProduct } from './redux/productSlice';
+import { ChakraProvider } from '@chakra-ui/react'
+import Footer from './components/Footer';
 function App() {
 
   const dispatch = useDispatch()
@@ -21,6 +23,7 @@ function App() {
   }, [])
   return (
     <>
+      <ChakraProvider>
       <Toaster />
       <div>
         <Header />
@@ -28,6 +31,8 @@ function App() {
           <Outlet />
         </main>
     </div>
+        <Footer />
+      </ChakraProvider>
     </>
   );
 }

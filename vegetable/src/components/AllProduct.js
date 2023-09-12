@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Box, Heading, Flex, Text, Spinner } from "@chakra-ui/react";
 import CardFeature from "./CardFeature";
 import FilterCard from "./FilterCard";
 
@@ -7,7 +8,7 @@ const AllProduct = ({ heading }) => {
     const productData = useSelector((state) => state.product.productList);
     const categoryList = [...new Set(productData.map((el) => el.category))];
 
-    //filter data display
+    // filter data display
     const [filterby, setFilterBy] = useState("");
     const [dataFilter, setDataFilter] = useState([]);
 
@@ -16,7 +17,7 @@ const AllProduct = ({ heading }) => {
     }, [productData]);
 
     const handleFilterProduct = (category) => {
-        setFilterBy(category)
+        setFilterBy(category);
         const filter = productData.filter(
             (el) => el.category.toLowerCase() === category.toLowerCase()
         );
@@ -28,10 +29,19 @@ const AllProduct = ({ heading }) => {
     const loadingArrayFeature = new Array(10).fill(null);
 
     return (
-        <div className="my-5">
-            <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
+        <Box my={5}>
+            <Heading
+                as="h2"
+                fontSize="2xl"
+                fontWeight="bold"
+                color="slate.800"
+                mb={4}
+                textAlign="center"
+            >
+                {heading}
+            </Heading>
 
-            <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+            <Flex gap={4} justify="center" overflowX="auto" sx={{ scrollbar: "none" }}>
                 {categoryList[0] ? (
                     categoryList.map((el) => {
                         return (
@@ -41,18 +51,25 @@ const AllProduct = ({ heading }) => {
                                 isActive={el.toLowerCase() === filterby.toLowerCase()}
                                 onClick={() => handleFilterProduct(el)}
                             />
-                        );
-                    })
-                ) : (
-                    <div className="min-h-[150px] flex justify-center items-center">
-                        <p>Loading...</p>
-                    </div>
-                )}
-            </div>
 
-            <div className="flex flex-wrap justify-center gap-4 my-4">
-                {dataFilter[0]
-                    ? dataFilter.map((el) => {
+                      );
+                  })
+                ) : (
+                    <Flex
+                        minH="150px"
+                        justify="center"
+                        align="center"
+                        bg="gray.100"
+                        borderRadius="md"
+                    >
+                        <Spinner color="blue.500" size="lg" />
+                    </Flex>
+                )}
+            </Flex>
+
+            <Flex flexWrap="wrap" justify="center" gap={4} my={4}>
+                {dataFilter[0] ? (
+                    dataFilter.map((el) => {
                         return (
                             <CardFeature
                                 key={el._id}
@@ -64,12 +81,13 @@ const AllProduct = ({ heading }) => {
                             />
                         );
                     })
-                    :
+                ) : (
                     loadingArrayFeature.map((el, index) => (
                         <CardFeature loading="Loading..." key={index + "allProduct"} />
-                    ))}
-            </div>
-        </div>
+                  ))
+                )}
+            </Flex>
+        </Box>
     );
 };
 
