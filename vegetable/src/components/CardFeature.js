@@ -28,11 +28,12 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
           w="200px"
           minW="200px"
           maxW="200px"
-          bg="white"
+            bg="white"
           boxShadow="lg"
           py="5"
           px="4"
           cursor="pointer"
+            borderRadius="md"
           transition="transform 0.2s ease, box-shadow 0.2s ease"
           _hover={{
               transform: 'translateY(-5px)',

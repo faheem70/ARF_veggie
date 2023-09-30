@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import ban from "../assest/banner.png"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -120,6 +120,7 @@ const Home = () => {
             </button>
           </div>
         </div>
+
         <div
           className="flex gap-5 overflow-scroll scrollbar-none scroll-smooth transition-all"
           ref={slideProductRef}
@@ -144,7 +145,10 @@ const Home = () => {
       </div>
 
       <AllProduct heading={"Your Product"} />
+      <div class="container-fluid"><img class="style_img__Ig9Nc" src={ban} alt="Banner" /></div>
+
     </div>
+
   )
 }
 
